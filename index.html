@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Bot WhatsApp - Produk 3D</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variabel CSS untuk konsistensi */
+        :root {
+            --primary-color: #25D366;
+            --secondary-color: #128C7E;
+            --accent-color: #FF9900;
+            --dark-color: #075E54;
+            --light-color: #ECE5DD;
+            --text-dark: #1E1E1E;
+            --text-light: #FFFFFF;
+            --fire-color-1: #FF5722;
+            --fire-color-2: #FF9800;
+            --fire-color-3: #FFEB3B;
+        }
+
+        /* Reset dan gaya dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1E1E1E, #2C3E50);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header dengan efek 3D */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            perspective: 1000px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+            transform-style: preserve-3d;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(5deg); }
+            50% { transform: translateY(-10px) rotateX(5deg); }
+        }
+
+        /* Navigasi produk */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-color);
+            color: var(--text-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Grid produk dengan efek 3D */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--fire-color-1), var(--fire-color-2), var(--fire-color-3));
+            z-index: 2;
+            animation: fireAnimation 2s infinite;
+        }
+
+        @keyframes fireAnimation {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 87, 34, 0.5);
+        }
+
+        .product-category {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+        }
+
+        .product-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--fire-color-1), var(--fire-color-2));
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+        }
+
+        .product-features {
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .product-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .product-feature i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        /* Tombol WhatsApp dengan efek 3D */
+        .whatsapp-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px) rotateX(5deg);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Footer dengan saluran WhatsApp */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .channel-info {
+            margin-bottom: 20px;
+        }
+
+        .channel-info h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .channel-link {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(37, 211, 102, 0.1);
+            color: var(--text-light);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .channel-link:hover {
+            background: rgba(37, 211, 102, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .channel-link i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Responsivitas */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        /* Efek api untuk elemen khusus */
+        .fire-effect {
+            position: relative;
+            display: inline-block;
+        }
+
+        .fire-effect::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--fire-color-1), var(--fire-color-2), var(--fire-color-3));
+            border-radius: 50%;
+            filter: blur(3px);
+            opacity: 0.7;
+            animation: firePulse 2s infinite;
+        }
+
+        @keyframes firePulse {
+            0%, 100% { opacity: 0.7; width: 100%; }
+            50% { opacity: 0.9; width: 105%; }
+        }
+
+        /* Animasi memudar untuk kategori */
+        .category-section {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Kustom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="fire-effect">PANEL BOT WHATSAPP</h1>
+            <p>Layanan terbaik dengan kualitas premium dan harga terjangkau</p>
+        </header>
+
+        <nav class="category-nav">
+            <button class="category-btn active" data-category="all">Semua Produk</button>
+            <button class="category-btn" data-category="panel">Panel Privat</button>
+            <button class="category-btn" data-category="sosmed">Suntik Sosmed</button>
+            <button class="category-btn" data-category="sewa">Sewa Bot</button>
+            <button class="category-btn" data-category="lainnya">Lainnya</button>
+        </nav>
+
+        <main>
+            <div class="products-grid">
+                <!-- Panel Privat -->
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM 4GB</h2>
+                    <div class="product-price">Rp 4.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM 4GB</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%204GB" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM 5GB</h2>
+                    <div class="product-price">Rp 5.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM 5GB</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%205GB" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM 6GB</h2>
+                    <div class="product-price">Rp 6.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM 6GB</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%206GB" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM 7GB</h2>
+                    <div class="product-price">Rp 7.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM 7GB</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%207GB" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM 8GB</h2>
+                    <div class="product-price">Rp 8.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM 8GB</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%208GB" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM 9GB</h2>
+                    <div class="product-price">Rp 9.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM 9GB</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%209GB" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <div class="product-card category-section" data-category="panel">
+                    <span class="product-category">Panel Privat</span>
+                    <h2 class="product-name">RAM Unlimited</h2>
+                    <div class="product-price">Rp 10.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-memory"></i>
+                            <span>Kapasitas RAM Unlimited</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Kecepatan Tinggi</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privat & Aman</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/+62895415652538?text=Saya%20tertarik%20dengan%20Panel%20Privat%20RAM%20Unlimited" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> <span>Pesan Sekarang</span>
+                    </a>
+                </div>
+
+                <!-- Suntik Sosmed - Instagram Likes -->
+                <div class="product-card category-section" data-category="sosmed">
+                    <span class="product-category">Suntik Sosmed - Instagram</span>
+                    <h2 class="product-name">100 Likes</h2>
+                    <div class="product-price">Rp 2.000</div>
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fab fa-instagram"></i>
+                            <span>100 Likes Instagram</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Proses Cepat</span>
+                        </div>
+                    
